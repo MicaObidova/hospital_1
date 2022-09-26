@@ -41,15 +41,7 @@ class Categoryview(APIView):
             return Response(ser.data)
 
 
-class Analys(APIView):
-    authentication_classes = [authentication.TokenAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-    def get_analys(self, request):
-        if User.STATUS == 3:
-            if AnalysisPatient.STATUS == 1:
-                return AnalysisPatient.STATUS == 1
-            else:
-                return AnalysisPatient.STATUS == 2
+
 
 
 # umida qiz
