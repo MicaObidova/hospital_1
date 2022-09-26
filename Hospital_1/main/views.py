@@ -11,34 +11,34 @@ class Info(APIView):
     permission_classes = [permissions.IsAuthenticated]
     def get_info(self,request):
         if User.STATUS == User.STATUS:
-            info = Info.objects.get(user=User)
+            info = Info.objects.all()
             data = {
-                "info" : info
+                "info": info
             }
-            return Response(request,data)
+            return Response(request, data)
 
 class Patients(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-    def get_patient(self,request):
-        if User.STATUS == 1 or 2:
-            patient = AnalysisPatient.objects.get(user=User)
-            data = {
-                "patient": patient
-            }
-            return Response(request,data)
+
+    def get(self, request):
+        user = request.user
+        if user.types == 1 or user.types == 2:
+            patient = AnalysisPatient.objects.all()
+            ser = AnalysisPatientSerializer(patient,many=True)
+            return Response(ser.data)
 
 
-class Category(APIView):
+class Categoryview(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-    def get_category(self,request):
-        if User.STATUS == User.STATUS:
+
+    def get(self,request):
+        user = request.user
+        if user.types ==3 or  user.types ==2  or user.types ==1:
             category = Category.objects.all()
-            data = {
-                "category": category
-            }
-            return Response(request,data)
+            ser = CategorySerializer(category,many=True)
+            return Response(ser.data)
 
 
 class Analys(APIView):
