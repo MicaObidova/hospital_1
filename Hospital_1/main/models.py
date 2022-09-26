@@ -62,5 +62,10 @@ class Info(models.Model):
     workinghour = models.IntegerField()
     dayoff = models.CharField(max_length=255, null=True, blank=True)
 
-#   NULL TRUE BERAMZ ANALIZGA
+
+class ThoseTreated(models.Model):
+    patient = models.ForeignKey(AnalysisPatient,on_delete=models.CASCADE)
+    doctorname = models.ForeignKey(User,on_delete=models.CASCADE)
+    totalprice = models.IntegerField()
+    is_paid = models.BooleanField()
 
